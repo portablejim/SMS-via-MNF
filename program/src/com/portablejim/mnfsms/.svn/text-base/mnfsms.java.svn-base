@@ -1,0 +1,135 @@
+package com.example.mnfsms;
+
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLEncoder;
+
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.EditText;
+
+import com.example.mnfsms.R.id;
+
+public class mnfsms extends Activity {
+	public static final String SETTINGS_NAME = "MNFSMS-settings";
+
+	/** Called when the activity is first created. */
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.main);
+        
+        Button send_button = (Button)findViewById(id.send_button);
+        send_button.setOnClickListener(new OnClickListener() {
+    		
+    		public void onClick(View arg0) {
+    			// Load up the preferences, to load them into the URL.
+    	        SharedPreferences settings = getSharedPreferences(SETTINGS_NAME, 0);
+    	        
+    	        String URL_username = "";
+	        	String URL_password = "";
+	        	String URL_numbers = "";
+	        	String URL_subscription = "";
+	        	String URL_message = "";
+    	        
+	        	HttpURLConnection sms_request = null;
+    	        int req;
+    	        URL SMS_url = null;
+    	        String sms_result = "";
+   				
+    	        try{
+    	        	URL_username = URLEncoder.encode(settings.getString("user_number", ""), "UTF-8");
+    	        	URL_password = URLEncoder.encode(settings.getString("user_password", ""), "UTF-8");
+    	        	URL_numbers = URLEncoder.encode(((EditText) findViewById(id.to_textbox)).getText().toString(), "UTF-8");
+    	        	URL_subscription = URLEncoder.encode(settings.getString("user_smssubid", ""), "UTF-8");
+    	        	URL_message = URLEncoder.encode(((EditText) findViewById(id.message_textbox)).getText().toString(), "UTF-8");
+    	        }
+    	        catch (UnsupportedEncodingException e) {
+    	    		e.printStackTrace();
+    	    	}
+
+    	        try {
+					SMS_url = new URL("https://www.mynetfone.com.au/portal/sms/Authenticate.action?username=" + URL_username + "&password=" + URL_password + "&to=" + URL_numbers + "&subscriptionId=" + URL_subscription + "&text=" + URL_message);
+				} catch (MalformedURLException e1) {
+					e1.printStackTrace();
+				}
+    			
+    	        try{
+    	        sms_request = (HttpURLConnection) SMS_url.openConnection();
+    			sms_request.setDoInput(true);
+    			sms_request.connect();
+ 				req = ((HttpURLConnection)sms_request).getResponseCode();
+    	        } catch (IOException e) {
+    	        	// May indicate 401 (Unauthorised) error.
+    				req = 401;
+    			} 
+   				switch (req) {
+				case 200:
+					sms_result = "SMS sent successfully";
+					break;
+					
+				case 401:
+					sms_result = "SMS failed to send. Please check settings (MENU => Settings) to ensure they are correct.";
+					break;
+					
+				case 500:
+					sms_result = "SMS failed to send. Ensure there is a message to send.";
+						break;
+						
+				case 400:
+				default:
+					sms_result = "SMS failed to send because of an unknown error. Please check you have internet access, and all details (including MENU => Settings) are correct.";
+					break;
+				}
+    				
+    			new AlertDialog.Builder(mnfsms.this).setMessage(sms_result).setPositiveButton("Close", null).show();
+    		}
+    	});
+        
+        // "Clear" Button 
+        ((Button)findViewById(id.cancel_button)).setOnClickListener(new OnClickListener() {
+    		
+    		public void onClick(View arg0) {
+    			// Clear the text in both textboxes
+    			((EditText) findViewById(id.to_textbox)).setText("");
+    			((EditText) findViewById(id.message_textbox)).setText("");
+    		}
+    		});
+        
+     // "Exit" Button 
+        ((Button)findViewById(id.exit_button)).setOnClickListener(new OnClickListener() {
+    		public void onClick(View arg0) {
+    			// Exit the app
+    			finish();
+    		}
+    		});
+    }
+    
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.options_menu, menu);
+
+        MenuItem mi_settings = menu.findItem(R.id.settingsbutton);
+        mi_settings.setIntent(new Intent(this, mnfsms_settings.class));
+        
+        MenuItem mi_about = menu.findItem(R.id.about_button);
+        mi_about.setIntent(new Intent(this, mnfsms_about.class));
+        
+        MenuItem mi_help = menu.findItem(R.id.help_button);
+        mi_help.setIntent(new Intent(this, mnfsms_help.class));
+        
+        return true;
+    }
+}
