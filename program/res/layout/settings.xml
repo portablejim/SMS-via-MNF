@@ -38,6 +38,10 @@
         android:layout_height="wrap_content"
     	android:password="true"
         android:inputType="phone"/>
+        <CheckBox android:id="@+id/fixphone_checkbox" 
+        android:text="@string/fixphone_checkbox_text"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
 </LinearLayout>
 <TableLayout
 	android:layout_width="fill_parent" android:layout_height="wrap_content">

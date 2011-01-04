@@ -2,7 +2,7 @@
 <resources>
     <string name="app_name">SMS via MNF</string>
     <string name="decription">Send SMS via the MyNetFone API</string>
-    <string name="version">0.6.0</string>
+    <string name="version">0.6.1</string>
     <string name="main_window_name">SMS via MNF</string>
     <string name="main_heading">Send SMS via MyNetFone</string>
 	<string name="settings_name">SMS via MNF - Settings</string>
@@ -19,6 +19,7 @@
 	<string name="user_number_label">MyNetFone Username: (To login to the portal)</string>
 	<string name="user_password_label">MyNetFone Password: (To login to the portal)</string>
 	<string name="user_subscription_label">SMS subscription ID:</string>
+	<string name="fixphone_checkbox_text">Format phone numbers correctly</string>
 <string name="about_intro">About this Program</string>
 <string name="about_Author">Created by James McKay</string>
 <string name="about_Version_intro">SMS via MNF version  </string>
@@ -35,9 +36,12 @@
 <string name="help_settings_username"><b><u>MyNetFone Username</u></b> - your MyNetFone username, as used to log onto the MyAccount portal, e.g. bob_smith_31415</string>
 <string name="help_settings_password"><b><u>MyNetFone Password</u></b> - your MyNetFone password, as used to log onto the MyAccount Portal</string>
 <string name="help_settings_subid"><b><u>SMS subscription ID</u></b> - SMS Subscription id, as per the MyAccount Portal. To find out your subscription ID, Log in to the account portal and go into MyTextSMS => SMS service => SMS Subscription ID.</string>
+<string name="help_settings_fixphone_checkbox_text"><b><u>Format phone numbers correctly</u></b> - Formats the phone numbers to an acceptable form (i.e. turning "9999-9999" into "99999999"). This works for some formats of phone numbers. You can always edit the number if it is wrong.</string>
 <string name="help_main_button_exit"><b><u>"Exit" button</u></b> - Exit the application</string>
 <string name="help_main_button_clear"><b><u>"Clear" button</u></b> - Clear the \"To\" and \"Message\" Fields</string>
 <string name="help_main_button_send"><b><u>"Exit" button</u></b> - Exit the application</string>
 <string name="help_settings_button_cancel"><b><u>"Cancel" button</u></b> - Discard changes and return to the main screen</string>
 <string name="help_settings_button_save"><b><u>"Save" button</u></b> - Save changes and return to the main screen</string>
+<string name="firstrun_title">Hello</string>
+<string name="firstrun">Just a friendly reminder that this program has help\n\nHit the menu button on your phone, then click "Help".\n\n(this message will not pop up again)</string>
 </resources>

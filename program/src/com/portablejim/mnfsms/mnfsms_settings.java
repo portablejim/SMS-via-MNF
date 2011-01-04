@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 
 import com.portablejim.mnfsms.R.id;
@@ -23,6 +24,7 @@ public class mnfsms_settings extends Activity {
 			settings_editor.putString("user_number", ((EditText) findViewById(id.user_number_textbox)).getText().toString());
 			settings_editor.putString("user_password", ((EditText) findViewById(id.user_password_textbox)).getText().toString());
 			settings_editor.putString("user_smssubid", ((EditText) findViewById(id.user_smssub_textbox)).getText().toString());
+			settings_editor.putBoolean("fix_phone", ((CheckBox) findViewById(id.fixphone_checkbox)).isChecked());
 			settings_editor.commit();
 			
 			finish();
@@ -34,6 +36,10 @@ public class mnfsms_settings extends Activity {
 		if ((value != null) && (value != "")) {
 			target.setText(value);
 		}
+	}
+	
+	private void load_prefs(Boolean value, CheckBox target) {
+			target.setChecked(value);
 	}
 	
 	/** Called when the activity is first created. */
@@ -60,5 +66,6 @@ public class mnfsms_settings extends Activity {
         load_prefs(settings.getString("user_number", null), (EditText) findViewById(id.user_number_textbox));
         load_prefs(settings.getString("user_password", null), (EditText) findViewById(id.user_password_textbox));
         load_prefs(settings.getString("user_smssubid", null), (EditText) findViewById(id.user_smssub_textbox));
+        load_prefs(settings.getBoolean("fix_phone", false), (CheckBox) findViewById(id.fixphone_checkbox));
     }
 }

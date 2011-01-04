@@ -1,6 +1,5 @@
 package com.portablejim.mnfsms;
 
-import java.awt.Dialog;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
@@ -33,6 +32,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.provider.ContactsContract.CommonDataKinds.Phone;
 
+import com.portablejim.mnfsms.R;
+import com.portablejim.mnfsms.mnfsms_about;
+import com.portablejim.mnfsms.mnfsms_help;
+import com.portablejim.mnfsms.mnfsms_settings;
 import com.portablejim.mnfsms.R.id;
 
 public class mnfsms extends Activity{
@@ -117,12 +120,14 @@ public class mnfsms extends Activity{
 			}
 		});
         
-        fix_phone("0011+61423097962");
-        fix_phone("(04)23097962");
-        fix_phone("(02)68844510");
-        fix_phone("(02) 6884-4510");
-        fix_phone("(02)6884 - 4510");
-        
+        SharedPreferences settings = getSharedPreferences(SETTINGS_NAME, 0);
+        SharedPreferences.Editor settings_editor = settings.edit();
+        if(settings.getBoolean("firstrun", true))
+        {
+        	new AlertDialog.Builder(mnfsms.this).setTitle(R.string.firstrun_title).setMessage(R.string.firstrun).setPositiveButton("OK", null).show();
+        	settings_editor.putBoolean("firstrun", false);
+        	settings_editor.commit();
+        }
     }
     
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -141,6 +146,7 @@ public class mnfsms extends Activity{
         return true;
     }
     
+    // After user picks contact 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
         	Cursor cursor = null;
@@ -188,9 +194,16 @@ public class mnfsms extends Activity{
                     	phonenumEntry.append(", ");
                     }
                     
-                    // Put number into field
                     if(matcher_empty.matches())
                     {
+                    	SharedPreferences settings = getSharedPreferences(SETTINGS_NAME, 0);
+                    	if(settings.getBoolean("fix_phone", false))
+                    	{
+                    		// Format phone number correctly
+                    		phone_num = fix_phone(phone_num);
+                    	}
+
+                        // Put number into field
                     	phonenumEntry.setText(phone_num);
                     }
                     else
@@ -328,9 +341,11 @@ public class mnfsms extends Activity{
     
     public String fix_phone(String old_phone)
     {
-    	Pattern phPatt = Pattern.compile("^(?:\d*(\+))?\(?(\d*)\)? ?(\d*) ?-? ?(\d)*$")
-    	String new_phone = old_phone.replaceAll("^(?:\d*(\+))?\(?(\d*)\)? ?(\d*) ?-? ?(\d)*$", "$1 # $2 # $3 # 4");
+    	String new_phone = old_phone.replaceAll("^(?:\\d*(\\u002B))?\\u0028?(\\d*)\\u0029?\\s?(\\d*)\\s?\\u002D?\\s?(\\d+)$", "$1$2$3$4");
     	
-    	new AlertDialog.Builder(mnfsms.this).setMessage(new_phone).setPositiveButton("Close", null).show();
+    	// Remove "null" from start of string when not international number
+    	new_phone = new_phone.replaceAll("^null", "");
+    	
+    	return new_phone;
     }
 }

@@ -14,6 +14,7 @@
 <TextView style="@style/about_textbox" android:autoLink="none" android:text="@string/help_settings_username"/>
 <TextView style="@style/about_textbox" android:text="@string/help_settings_password"/>
 <TextView style="@style/about_textbox" android:text="@string/help_settings_subid"/>
+<TextView style="@style/about_textbox" android:text="@string/help_settings_fixphone_checkbox_text"/>
 <TextView style="@style/about_textbox" android:text="@string/help_settings_button_cancel"/>
 <TextView style="@style/about_textbox" android:text="@string/help_settings_button_save"/>
  </LinearLayout>
