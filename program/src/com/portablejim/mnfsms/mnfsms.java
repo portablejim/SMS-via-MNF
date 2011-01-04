@@ -1,5 +1,6 @@
 package com.portablejim.mnfsms;
 
+import java.awt.Dialog;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
@@ -115,6 +116,12 @@ public class mnfsms extends Activity{
 				((TextView)findViewById(id.message_textcount)).setTextColor(text_colour);
 			}
 		});
+        
+        fix_phone("0011+61423097962");
+        fix_phone("(04)23097962");
+        fix_phone("(02)68844510");
+        fix_phone("(02) 6884-4510");
+        fix_phone("(02)6884 - 4510");
         
     }
     
@@ -317,5 +324,13 @@ public class mnfsms extends Activity{
 			text_colour = Color.GREEN;
 		}
 		((TextView)findViewById(id.message_textbox)).setTextColor(text_colour);
+    }
+    
+    public String fix_phone(String old_phone)
+    {
+    	Pattern phPatt = Pattern.compile("^(?:\d*(\+))?\(?(\d*)\)? ?(\d*) ?-? ?(\d)*$")
+    	String new_phone = old_phone.replaceAll("^(?:\d*(\+))?\(?(\d*)\)? ?(\d*) ?-? ?(\d)*$", "$1 # $2 # $3 # 4");
+    	
+    	new AlertDialog.Builder(mnfsms.this).setMessage(new_phone).setPositiveButton("Close", null).show();
     }
 }
