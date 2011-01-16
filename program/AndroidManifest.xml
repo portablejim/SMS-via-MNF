@@ -3,7 +3,7 @@
       package="com.portablejim.mnfsms.testing"
       android:versionName="@string/version" android:installLocation="auto" android:versionCode="3">
     <application android:icon="@drawable/icon" android:label="@string/app_name" android:description="@string/decription" android:allowClearUserData="true">
-        <activity android:name=".mnfsms" android:label="@string/main_window_name">
+        <activity android:name="com.portablejim.mnfsms.mnfsms" android:label="@string/main_window_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
