@@ -9,7 +9,8 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 
-import com.portablejim.mnfsms.R.id;
+import com.portablejim.mnfsms.testing.R;
+import com.portablejim.mnfsms.testing.R.id;
 
 public class mnfsms_settings extends Activity {
 	public static final String SETTINGS_NAME = "MNFSMS-settings";
