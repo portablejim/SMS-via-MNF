@@ -1,65 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android" android:layout_height="wrap_content" android:layout_width="fill_parent">
-<LinearLayout android:orientation="vertical"
-    android:layout_width="fill_parent" android:layout_height="wrap_content">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content" >
 
-<LinearLayout android:orientation="vertical"
-    android:layout_width="fill_parent" android:layout_height="wrap_content">
-     <TextView
-        android:layout_width="wrap_content"
-    	android:layout_height="wrap_content"
-        android:text="@string/user_number_label" 
-        android:layout_marginTop="3dip" 
-        android:layout_marginBottom="3dip"/>
-        <EditText
-    	android:id="@+id/user_number_textbox"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"/>
-     <TextView
-        android:layout_width="wrap_content"
-    	android:layout_height="wrap_content"
-        android:text="@string/user_password_label" 
-        android:layout_marginTop="3dip" 
-        android:layout_marginBottom="3dip"/>
-        <EditText
-    	android:id="@+id/user_password_textbox"
+    <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:inputType="textPassword"/>
-     <TextView
-        android:layout_width="wrap_content"
-    	android:layout_height="wrap_content"
-        android:text="@string/user_subscription_label" 
-        android:layout_marginTop="3dip" 
-        android:layout_marginBottom="3dip"/>
-        <EditText
-    	android:id="@+id/user_smssub_textbox"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-    	android:password="true"
-        android:inputType="phone"/>
-        <CheckBox android:id="@+id/fixphone_checkbox" 
-        android:text="@string/fixphone_checkbox_text"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content" />
-</LinearLayout>
-<TableLayout
-	android:layout_width="fill_parent" android:layout_height="wrap_content">
-	<TableRow>
-	<Button
-        android:id="@+id/settings_cancel_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/settings_button_cancel" android:layout_weight="1"/>
-	<Button
-        android:id="@+id/settings_save_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/settings_button_save" 
-        android:layout_weight="1"
-        android:layout_gravity="bottom" />
-	</TableRow>
-</TableLayout>
-</LinearLayout>
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="3dip"
+                android:layout_marginTop="3dip"
+                android:text="@string/username_label" />
+
+            <EditText
+                android:id="@+id/username_textbox"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textNoSuggestions" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="3dip"
+                android:layout_marginTop="3dip"
+                android:text="@string/user_password_label" />
+
+            <EditText
+                android:id="@+id/user_password_textbox"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="3dip"
+                android:layout_marginTop="3dip"
+                android:text="@string/user_subscription_label" />
+
+            <EditText
+                android:id="@+id/user_smssub_textbox"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number" />
+
+            <CheckBox
+                android:id="@+id/fixphone_checkbox"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/fixphone_checkbox_text" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/LinearLayout1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+
+            <Button
+                android:id="@+id/settings_cancel_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/settings_button_cancel" />
+
+            <Button
+                android:id="@+id/settings_save_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_weight="1"
+                android:text="@string/settings_button_save" />
+        </LinearLayout>
+    </LinearLayout>
+
 </ScrollView>
-

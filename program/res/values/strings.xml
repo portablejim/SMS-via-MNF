@@ -17,7 +17,7 @@
     <string name="button_add_contact">Add from Contacts</string>
 	<string name="settings_button_cancel">Cancel</string>
 	<string name="settings_button_save">Save</string>
-	<string name="user_number_label">MyNetFone Username: (To login to the portal)</string>
+	<string name="username_label">MyNetFone Username: (To login to the portal)</string>
 	<string name="user_password_label">MyNetFone Password: (To login to the portal)</string>
 	<string name="user_subscription_label">SMS subscription ID:</string>
 	<string name="fixphone_checkbox_text">Format phone numbers correctly</string>

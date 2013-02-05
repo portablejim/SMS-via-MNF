@@ -22,7 +22,7 @@ public class mnfsms_settings extends Activity {
 			// Open an editor to edit the preferences.
 			SharedPreferences.Editor settings_editor = settings.edit();
 			// Store the EditText values in the preferences.
-			settings_editor.putString("user_number", ((EditText) findViewById(id.user_number_textbox)).getText().toString());
+			settings_editor.putString("user_number", ((EditText) findViewById(id.username_textbox)).getText().toString());
 			settings_editor.putString("user_password", ((EditText) findViewById(id.user_password_textbox)).getText().toString());
 			settings_editor.putString("user_smssubid", ((EditText) findViewById(id.user_smssub_textbox)).getText().toString());
 			settings_editor.putBoolean("fix_phone", ((CheckBox) findViewById(id.fixphone_checkbox)).isChecked());
@@ -64,7 +64,7 @@ public class mnfsms_settings extends Activity {
         // Load up the preferences, to load them into the fields.
         SharedPreferences settings = getSharedPreferences(SETTINGS_NAME, 0);
         
-        load_prefs(settings.getString("user_number", null), (EditText) findViewById(id.user_number_textbox));
+        load_prefs(settings.getString("user_number", null), (EditText) findViewById(id.username_textbox));
         load_prefs(settings.getString("user_password", null), (EditText) findViewById(id.user_password_textbox));
         load_prefs(settings.getString("user_smssubid", null), (EditText) findViewById(id.user_smssub_textbox));
         load_prefs(settings.getBoolean("fix_phone", false), (CheckBox) findViewById(id.fixphone_checkbox));
