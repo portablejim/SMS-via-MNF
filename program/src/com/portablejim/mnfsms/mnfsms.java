@@ -32,11 +32,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.provider.ContactsContract.CommonDataKinds.Phone;
 
-import com.portablejim.mnfsms.testing.R;
+import com.portablejim.mnfsms.R;
 import com.portablejim.mnfsms.mnfsms_about;
 import com.portablejim.mnfsms.mnfsms_help;
 import com.portablejim.mnfsms.mnfsms_settings;
-import com.portablejim.mnfsms.testing.R.id;
+import com.portablejim.mnfsms.R.id;
 
 public class mnfsms extends Activity{
 	public static final String SETTINGS_NAME = "MNFSMS-settings";

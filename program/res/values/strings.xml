@@ -9,6 +9,7 @@
 	<string name="about_name">About \"SMS via MNF\"</string>
 	<string name="help_name">SMS via MNF - Help</string>
     <string name="to_label">To: </string>
+    <string name="initial_remaining_length">160 left</string>
     <string name="message_label">Message: </string>
     <string name="button_exit">Exit</string>
     <string name="button_cancel">Clear</string>
@@ -36,7 +37,7 @@
 <string name="help_settings_username"><b><u>MyNetFone Username</u></b> - your MyNetFone username, as used to log onto the MyAccount portal, e.g. bob_smith_31415</string>
 <string name="help_settings_password"><b><u>MyNetFone Password</u></b> - your MyNetFone password, as used to log onto the MyAccount Portal</string>
 <string name="help_settings_subid"><b><u>SMS subscription ID</u></b> - SMS Subscription id, as per the MyAccount Portal. To find out your subscription ID, Log in to the account portal and go into MyTextSMS => SMS service => SMS Subscription ID.</string>
-<string name="help_settings_fixphone_checkbox_text"><b><u>Format phone numbers correctly</u></b> - Formats the phone numbers to an acceptable form (i.e. turning "9999-9999" into "99999999"). This works for some formats of phone numbers. You can always edit the number if it is wrong.</string>
+<string name="help_settings_fixphone_checkbox_text"><b><u>Format phone numbers correctly</u></b> - Formats the phone numbers to an acceptable form (i.e. turning "9999&#8211;9999" into "99999999"). This works for some formats of phone numbers. You can always edit the number if it is wrong.</string>
 <string name="help_main_button_exit"><b><u>"Exit" button</u></b> - Exit the application</string>
 <string name="help_main_button_clear"><b><u>"Clear" button</u></b> - Clear the \"To\" and \"Message\" Fields</string>
 <string name="help_main_button_send"><b><u>"Exit" button</u></b> - Exit the application</string>

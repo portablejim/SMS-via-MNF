@@ -1,6 +1,6 @@
 package com.portablejim.mnfsms;
 
-import com.portablejim.mnfsms.testing.R;
+import com.portablejim.mnfsms.R;
 
 import android.app.Activity;
 import android.os.Bundle;
