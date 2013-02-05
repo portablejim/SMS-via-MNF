@@ -254,7 +254,9 @@ public class mnfsms extends Activity{
             	URL_password = URLEncoder.encode(settings.getString("user_password", ""), "UTF-8");
             	URL_numbers = URLEncoder.encode(((EditText) findViewById(id.to_textbox)).getText().toString(), "UTF-8");
             	URL_subscription = URLEncoder.encode(settings.getString("user_smssubid", ""), "UTF-8");
-            	URL_message = URLEncoder.encode(((EditText) findViewById(id.message_textbox)).getText().toString(), "UTF-8");
+            	String text_message = ((EditText) findViewById(id.message_textbox)).getText().toString();
+            	text_message.replaceAll("\\n", "\r\n");
+            	URL_message = URLEncoder.encode(text_message, "UTF-8");
             }
             catch (UnsupportedEncodingException e) {
         		e.printStackTrace();
