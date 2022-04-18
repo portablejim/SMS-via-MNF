@@ -8,9 +8,9 @@ android {
     defaultConfig {
         applicationId "au.id.jamesmckay.smsviamnf"
         minSdk 19
-        targetSdk 32
-        versionCode 1
-        versionName "1.0"
+        targetSdk 31
+        versionCode 6
+        versionName "0.7.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
