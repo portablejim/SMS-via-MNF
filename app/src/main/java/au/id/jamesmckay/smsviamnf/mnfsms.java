@@ -1,7 +1,12 @@
 package au.id.jamesmckay.smsviamnf;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -24,6 +29,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -85,7 +91,13 @@ public class mnfsms extends AppCompatActivity {
             public void onClick(View arg0) {
                 Intent contactPickerIntent = new Intent(Intent.ACTION_PICK);
                 contactPickerIntent.setType(Phone.CONTENT_TYPE);
-                startActivityForResult(contactPickerIntent, CONTACT_PICKER_RESULT);
+                if(Build.VERSION.SDK_INT < 23)
+                {
+                    startActivityForResult(contactPickerIntent, CONTACT_PICKER_RESULT);
+                }
+                else {
+                    ActivityCompat.requestPermissions(mnfsms.this, new String[]{ Manifest.permission.READ_CONTACTS }, 1);
+                }
             }
         });
 
@@ -130,6 +142,24 @@ public class mnfsms extends AppCompatActivity {
             new AlertDialog.Builder(mnfsms.this).setTitle(R.string.firstrun_title).setMessage(R.string.firstrun).setPositiveButton("OK", null).show();
             settings_editor.putBoolean("firstrun", false);
             settings_editor.commit();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] results) {
+        super.onRequestPermissionsResult(requestCode, permissions, results);
+        if (requestCode == 1) {
+            if (results.length > 0) {
+                Intent contactPickerIntent = new Intent(Intent.ACTION_PICK);
+                contactPickerIntent.setType(Phone.CONTENT_TYPE);
+                int permissionResult = results[0];
+                if(permissionResult != PackageManager.PERMISSION_GRANTED) {
+                    Toast.makeText(mnfsms.this, "Contact permission not granted.", Toast.LENGTH_LONG).show();
+                }
+                else {
+                    startActivityForResult(contactPickerIntent, CONTACT_PICKER_RESULT);
+                }
+            }
         }
     }
 
@@ -180,6 +210,8 @@ public class mnfsms extends AppCompatActivity {
                         } else {
                         }
                     } catch (Exception e) {
+                        Log.e("MNF-SMS", e.getMessage());
+                        e.printStackTrace();
                     } finally {
                         if (cursor != null) {
                             cursor.close();
