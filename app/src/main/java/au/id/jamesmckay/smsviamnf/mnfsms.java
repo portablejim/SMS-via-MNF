@@ -265,7 +265,7 @@ public class mnfsms extends AppCompatActivity {
         @Override
         protected Integer doInBackground(Void... v) {
             try {
-                SMS_url = new URL("https://www.mynetfone.com.au/send-sms?username=" + URL_username + "&password=" + URL_password + "&to=" + URL_numbers + "&subscriptionId=" + URL_subscription + "&text=" + URL_message);
+                SMS_url = new URL("https://my.vonex.com.au/send-sms?username=" + URL_username + "&password=" + URL_password + "&to=" + URL_numbers + "&subscriptionId=" + URL_subscription + "&text=" + URL_message);
             } catch (MalformedURLException e1) {
                 e1.printStackTrace();
             }
