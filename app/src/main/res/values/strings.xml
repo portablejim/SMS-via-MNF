@@ -2,7 +2,7 @@
 <resources>
     <string name="app_name">SMS via MNF</string>
     <string name="decription">Send SMS via the MyNetFone API</string>
-    <string name="version">0.6.2</string>
+    <string name="version">0.7.0</string>
     <string name="main_window_name">SMS via MNF</string>
     <string name="main_heading">Send SMS via MyNetFone</string>
 	<string name="settings_name">SMS via MNF - Settings</string>
