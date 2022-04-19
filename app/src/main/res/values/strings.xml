@@ -24,10 +24,10 @@
 <string name="about_intro">About this Program</string>
 <string name="about_Author">Created by James McKay</string>
 <string name="about_Version_intro">SMS via MNF version  </string>
-<string name="about_Description">This is a program that uses the Vonex( https://www.Vonex.com.au/ ) MyText SMS API (available at https://my.vonex.com.au/support/faq/question/454) to send SMSs through the user\'s Vonex SMS service.</string>
+<string name="about_Description">This is a program that uses the Vonex ( https://www.Vonex.com.au/ ) MyText SMS API (available at https://my.vonex.com.au/support/faq/question/454) to send SMSs through the user\'s Vonex SMS service.</string>
 <string name="about_CustomersOnly">You need to be a Vonex Customer in order to use this program. Find out more at https://vonex.com.au/residential</string>
 <string name="about_Contact">Contact me via my web-site http://portablejim.now.im if you have any questions, comments, complaints, suggestions, donations, etc.</string>
-<string name="about_Trademark">Vonex is a registered trademark of My Net Fone Limited </string>
+<string name="about_Trademark">MyNetFone is a registered trademark of My Net Fone Limited </string>
 <string name="help_heading">Help! I\'m Lost.</string>
 <string name="help_intro">Here is more info about each field</string>
 <string name="help_intro_main">On the main form:</string>
