@@ -1,10 +1,15 @@
 package au.id.jamesmckay.smsviamnf;
 
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContract;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -50,6 +55,16 @@ import au.id.jamesmckay.smsviamnf.R.id;
 public class mnfsms extends AppCompatActivity {
     public static final String SETTINGS_NAME = "MNFSMS-settings";
     private static final int CONTACT_PICKER_RESULT = 1001;
+
+    private ActivityResultLauncher<Integer> contactResult = registerForActivityResult(new PickContact(), new ActivityResultCallback<Uri>() {
+        @Override
+        public void onActivityResult(Uri uri) {
+            if(uri != null) {
+                // Handle the returned Uri
+                handleContactIntentResult(uri);
+            }
+        }
+    });
 
     /** Called when the activity is first created. */
     @Override
@@ -117,7 +132,7 @@ public class mnfsms extends AppCompatActivity {
                 //Sets colour of text
                 if(length < 140)
                 {
-                    text_colour = Color.GREEN;
+                    text_colour = getResources().getColor(R.color.mnfColorLightGreen);
                 }
                 else if(length < 150)
                 {
@@ -157,7 +172,7 @@ public class mnfsms extends AppCompatActivity {
                     Toast.makeText(mnfsms.this, "Contact permission not granted.", Toast.LENGTH_LONG).show();
                 }
                 else {
-                    startActivityForResult(contactPickerIntent, CONTACT_PICKER_RESULT);
+                    contactResult.launch(1);
                 }
             }
         }
@@ -185,74 +200,78 @@ public class mnfsms extends AppCompatActivity {
         if (resultCode == RESULT_OK) {
             Cursor cursor = null;
             String phone_num = "";
-            switch (requestCode) {
-                case CONTACT_PICKER_RESULT:
-                    // handle contact results
-                    try {
-                        Uri result = data.getData();
-
-                        // get the contact id from the Uri
-                        String id = result.getLastPathSegment();
-
-                        // query for everything phone
-                        cursor = getContentResolver().query(
-                                Phone.CONTENT_URI,
-                                null,
-                                Phone._ID + " = ?",
-                                new String[]{id},
-                                null);
-
-                        int phonenumIdx = cursor.getColumnIndex(Phone.NUMBER);
-
-                        // let's just get the first phone number
-                        if (cursor.moveToFirst()) {
-                            phone_num = cursor.getString(phonenumIdx);
-                        } else {
-                        }
-                    } catch (Exception e) {
-                        Log.e("MNF-SMS", e.getMessage());
-                        e.printStackTrace();
-                    } finally {
-                        if (cursor != null) {
-                            cursor.close();
-                        }
-                        EditText phonenumEntry = (EditText) findViewById(id.to_textbox);
-
-                        //Check if there is a comma at the end
-                        Pattern pattern = Pattern.compile(",.*$");
-                        Matcher matcher = pattern.matcher(phonenumEntry.getText().toString());
-                        Pattern pattern_empty = Pattern.compile("^( |,)*$");
-                        Matcher matcher_empty = pattern_empty.matcher(phonenumEntry.getText().toString());
-
-                        // Add comma if not present (and if not empty
-                        if (!(matcher.matches()) || (matcher_empty.matches())) {
-                            phonenumEntry.append(", ");
-                        }
-
-                        if (matcher_empty.matches()) {
-                            SharedPreferences settings = getSharedPreferences(SETTINGS_NAME, 0);
-                            if (settings.getBoolean("fix_phone", false)) {
-                                // Format phone number correctly
-                                phone_num = fix_phone(phone_num);
-                            }
-
-                            // Put number into field
-                            phonenumEntry.setText(phone_num);
-                        } else {
-                            phonenumEntry.append(phone_num);
-                        }
-
-                        if (phone_num.length() == 0) {
-                            Toast.makeText(this, "Error getting phone number for contact.",
-                                    Toast.LENGTH_LONG).show();
-                        }
-                    }
-                    break;
+            if (requestCode == CONTACT_PICKER_RESULT) {// handle contact results
+                Uri result = data.getData();
+                handleContactIntentResult(result);
             }
 
         } else {
             // gracefully handle failure
             Toast.makeText(this, "No phone number added", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void handleContactIntentResult(Uri contactResult)
+    {
+        Cursor cursor = null;
+        String phone_num = "";
+        // handle contact results
+        try {
+            // get the contact id from the Uri
+            String id = contactResult.getLastPathSegment();
+
+            // query for everything phone
+            cursor = getContentResolver().query(
+                    Phone.CONTENT_URI,
+                    null,
+                    Phone._ID + " = ?",
+                    new String[]{id},
+                    null);
+
+            int phonenumIdx = cursor.getColumnIndex(Phone.NUMBER);
+
+            // let's just get the first phone number
+            if (cursor.moveToFirst()) {
+                phone_num = cursor.getString(phonenumIdx);
+            } else {
+            }
+        } catch (Exception e) {
+            Log.e("MNF-SMS", e.getMessage());
+            e.printStackTrace();
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+            EditText phonenumEntry = (EditText) findViewById(id.to_textbox);
+
+            //Check if there is a comma at the end
+            Pattern pattern = Pattern.compile(",.*$");
+            Matcher matcher = pattern.matcher(phonenumEntry.getText().toString());
+            Pattern pattern_empty = Pattern.compile("^( |,)*$");
+            Matcher matcher_empty = pattern_empty.matcher(phonenumEntry.getText().toString());
+
+            // Add comma if not present (and if not empty
+            if (!(matcher.matches()) || (matcher_empty.matches())) {
+                phonenumEntry.append(", ");
+            }
+
+            if (matcher_empty.matches()) {
+                SharedPreferences settings = getSharedPreferences(SETTINGS_NAME, 0);
+                if (settings.getBoolean("fix_phone", false)) {
+                    // Format phone number correctly
+                    phone_num = fix_phone(phone_num);
+                }
+
+                // Put number into field
+                phonenumEntry.setText(phone_num);
+            } else {
+                phonenumEntry.append(phone_num);
+            }
+
+            if (phone_num.length() == 0) {
+                Toast.makeText(this, "Error getting phone number for contact.",
+                        Toast.LENGTH_LONG).show();
+            }
         }
     }
 
@@ -380,5 +399,25 @@ public class mnfsms extends AppCompatActivity {
         new_phone = new_phone.replaceAll("^null", "");
 
         return new_phone;
+    }
+
+    class PickContact extends ActivityResultContract<Integer, Uri>
+    {
+
+        @NonNull
+        @Override
+        public Intent createIntent(@NonNull Context context, Integer input) {
+            Intent contactPickerIntent = new Intent(Intent.ACTION_PICK);
+            contactPickerIntent.setType(Phone.CONTENT_TYPE);
+            return contactPickerIntent;
+        }
+
+        @Override
+        public Uri parseResult(int resultCode, @Nullable Intent intent) {
+            if (resultCode == RESULT_OK && intent != null) {
+                return intent.getData();
+            }
+            return null;
+        }
     }
 }
