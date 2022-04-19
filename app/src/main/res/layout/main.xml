@@ -75,7 +75,7 @@
                 android:layout_height="wrap_content"
                 android:paddingBottom="10dip"
                 android:text="@string/initial_remaining_length"
-                android:textColor="#00ff00" />
+                android:textColor="@color/mnfColorLightGreen" />
         </LinearLayout>
 
         <LinearLayout
